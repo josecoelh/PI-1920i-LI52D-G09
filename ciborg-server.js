@@ -6,7 +6,7 @@ const ciborgWebApi = require('./ciborg-web-api')
 
 const server = http.createServer(router)
 
-router.get(`ciborg/popular`, ciborgWebApi.getPopularGamesList)
+router.get(`/ciborg/popular`, ciborgWebApi.getPopularGamesList)
 router.get(`ciborg/search/:name`, ciborgWebApi.getGameByName)
 router.post('ciborg/group', ciborgWebApi.createGroupWithFavoriteGames)
 router.put(`ciborg/group/:id`, ciborgWebApi.updateGroup)
@@ -19,7 +19,7 @@ server.on('request', handleRequest)
 function handleRequest(req, rsp) {
     console.log(`Request received for ${req.url} with method ${req.method}`)
     try{
-    router(req,rsp)
+  //  router(req,rsp)
     }
     catch (e) {
         //THROW 404

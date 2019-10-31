@@ -1,16 +1,15 @@
 'use strict'
 
 let GET = {};
-let PUT  = {};
+let PUT = {};
 let POST = {};
 let DELETE = {};
-
 
 
 const NAME = 0;
 const VALUE = 1;
 
-let rout = function(req, rsp) {
+let rout = function (req, rsp) {
     var url = req.url
     var urlArray = url.split('/')
     var container;
@@ -36,21 +35,22 @@ let rout = function(req, rsp) {
             var pathArg;
             for (let i = 0; i < urlArray.length; i++) {
 
-                if (urlArray[i].contains('=')) {
+                if (urlArray[i].includes('=')) {
                     var iPosition = urlArray[i].split("=");
-                    if (!iPosition[NAME].equals(templateUrl[i])) {
+                    if (!(iPosition[NAME]==(templateUrl[i]))) {
                         isProp = false;
                         break;
                     }
                     pathArg[count++] = iPosition[VALUE]
                 } else {
-                    if (!urlArray[i].equals(templateUrl[i])) {
+                    if (!(urlArray[i]==templateUrl[i])) {
                         isProp = false;
                     }
                 }
             }
-            if(isProp){
-                container[prop](req,rsp,pathArg)
+            if (isProp) {
+                container[prop](req, rsp, pathArg)
+                return;
             }
         }
     }
@@ -58,10 +58,10 @@ let rout = function(req, rsp) {
 }
 
 
-rout.get = (url, fun) => GET.url = fun
-rout.put = (url, fun) => PUT.url = fun
-rout.delete = (url, fun) => DELETE.url = fun
-rout.post = (url, fun) => POST.url = fun
+rout.get = (url, fun) => GET[url] = fun
+rout.put = (url, fun) => PUT[url] = fun
+rout.delete = (url, fun) => DELETE[url] = fun
+rout.post = (url, fun) => POST[url] = fun
 
 module.exports = rout
 
