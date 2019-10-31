@@ -5,9 +5,9 @@ const url = "https://www.boardgameatlas.com/api/search?order_by=popularity&ascen
 request(url, processResponse)
    
 function processResponse(error, response, body){
-    if(error) return console.log(error)
+    if(error)  console.log(error)
      console.log(`status code: ${response.statuscode}`)
-    return console.log(`Response recieved ${body.toString()}`)
+     console.log(`Response recieved ${body.toString()}`)
     }
 
 

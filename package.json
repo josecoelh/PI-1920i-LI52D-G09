@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/josecoelh/PI-1920i-LI52D-G09#readme",
   "dependencies": {
+    "fs-extra": "^8.1.0",
+    "node-fetch": "^2.6.0",
     "request": "^2.88.0"
   }
 }
