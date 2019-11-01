@@ -18,20 +18,13 @@ server.on('request', handleRequest)
 
 function handleRequest(req, rsp) {
     console.log(`Request received for ${req.url} with method ${req.method}`)
-    try{
-        router(req,rsp)
-    }
-    catch (e) {
-        //THROW 404
-    }
     let data = ""
     req.on('data', chunk => data += chunk.toString())
     req.on('end', processBodyAndReply)
 
+
     function processBodyAndReply() {
         console.log(`Received data: ${data}`)
-        rsp.setHeader("Content-type", "text/plain")
-        rsp.end(data)
     }
 }
 

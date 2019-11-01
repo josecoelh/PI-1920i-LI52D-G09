@@ -5,20 +5,14 @@ const gameDto = require('./entities/gameDto')
 const service = require('./ciborg-service')
 
 
-async function getPopularGamesList(req, res) {
+function getPopularGamesList(req, res) {
     try {
-        let data = await service.GetPopularGameList()
-        res.statusCode = 200
-        res.setHeader('content-type', 'application/json')
-        res.end(JSON.stringify(data))
+         service.GetPopularGameList(req,res)
     }
     catch (e) {
-        res.statusCode = 404
-        res.setHeader('content-type', 'application/json')
-        res.end(JSON.stringify(e))
+    Console.log("merd")
     }
 }
-
 
 
 

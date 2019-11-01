@@ -6,20 +6,20 @@ const ciborgData = require('./board-games-data')
 
 
 
-function getPopularGamesList() {
-    return ciborgData()
-        .then(res => res.json())
-        .then(games => games.games.map(game => new gameDto(game.id, game.name, game.year_published, game.min_age, game.description)))
+function getPopularGamesList(req, rsp) {
+    ciborgData.getPopularGames(onSuccess,onError);
 
+    function onSuccess(gameArr) {
+        rsp.statusCode = 200
+        rsp.setHeader('content-type','application/json')
+        rsp.end(JSON.stringify(gameArr))
+    }
+    function onError() {
+        rsp.statusCode= 500
+        rsp.end()
+    }
 }
 
-/*CiborgService.prototype.getGameByName = function (name) {
-    return ciborg_data.getGameByName(name)
-        .then(result => result.json())
-        .then(singleGame => singleGame.games.map(game => new gameDto(game.id,game.name,game.year_published,game.min_age,game.description)))
-        .catch(err => {
-            return {statusCode: 404, body: 'You must insert a valid game name' }})
-}*/
 
 module.exports = {
     GetPopularGameList : getPopularGamesList

@@ -49,12 +49,12 @@ let rout = function (req, rsp) {
                 }
             }
             if (isProp) {
-                container[prop](req, rsp, pathArg)
-                return;
+                container[prop](req, rsp);
+                return
             }
         }
     }
-    throw 404;
+
 }
 
 
