@@ -3,16 +3,22 @@
 
 const gameDto = require('./entities/gameDto')
 const service = require('./ciborg-service')
+const ciborgData = require('./board-games-data')
 
 
-function getPopularGamesList(req, res) {
-    try {
-         service.GetPopularGameList(req,res)
-    }
-    catch (e) {
-    Console.log("merd")
-    }
-}
+async function getPopularGamesList(req, res) {
+        let data = await ciborgData.getPopularGames((err,resp) => {
+            if (err) {
+                res.statusCode = err.code
+                res.end(err.message + '\n' + err.error)
+            } else {
+                res.statusCode = 200
+                res.setHeader('content-type', 'application/json')
+                res.end(JSON.stringify(resp))
+            }
+        })}
+
+
 
 
 
