@@ -19,7 +19,7 @@ server.on('request', handleRequest)
 function handleRequest(req, rsp) {
     console.log(`Request received for ${req.url} with method ${req.method}`)
     try{
-  //  router(req,rsp)
+        router(req,rsp)
     }
     catch (e) {
         //THROW 404

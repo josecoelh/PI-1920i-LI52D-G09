@@ -1,28 +1,26 @@
 'use strict'
 
-const ciborgData = require('./board-games-data')
+
 const gameDto = require('./entities/gameDto')
+const service = require('./ciborg-service')
 
-function fillGameDtoWithInfo(data) {
-    return ((data => data.json())
-            .then(games => games.games.map(game => new gameDto(game.id, game.name, game.year_published, game.min_age, game.description)))
-            .catch(err => {
-                return {statusCode: 404, body: err.toString()}
-            })
-    )
-}
 
-function getPopularGamesList(req, res) {
+async function getPopularGamesList(req, res) {
     try {
-        let x = ciborgData.getPopularGames();
-        let data = fillGameDtoWithInfo(x);
+        let data = await service.GetPopularGameList()
         res.statusCode = 200
         res.setHeader('content-type', 'application/json')
-        res.end(JSON.stringify(data)) //converte valores em javascript para uma String JSON.
-    } catch (e) {
-        //errorHandler(e, res)
+        res.end(JSON.stringify(data))
+    }
+    catch (e) {
+        res.statusCode = 404
+        res.setHeader('content-type', 'application/json')
+        res.end(JSON.stringify(e))
     }
 }
+
+
+
 
 function getGameByName(req, res) {
     try {
