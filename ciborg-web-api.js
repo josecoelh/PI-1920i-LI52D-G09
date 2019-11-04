@@ -1,67 +1,43 @@
 'use strict'
 
 
-const gameDto = require('./entities/gameDto')
-const service = require('./ciborg-service')
-const ciborgData = require('./board-games-data')
+const services = require('./ciborg-service')
+const urlParse = require('url').parse
 
 
-async function getPopularGamesList(req, res) {
-        let data = await ciborgData.getPopularGames((err,resp) => {
-            if (err) {
-                res.statusCode = err.code
-                res.end(err.message + '\n' + err.error)
-            } else {
-                res.statusCode = 200
-                res.setHeader('content-type', 'application/json')
-                res.end(JSON.stringify(resp))
-            }
-        })}
-
-
-
-
-
-function getGameByName(req, res) {
-    try {
-        let data = CiborgService.getGameByName()
-        res.statusCode = 200
-        res.setHeader('content-type', 'application/json')
-        res.end(JSON.stringify(data)) //converte valores em javascript para uma String JSON.
-    } catch (e) {
-        //errorHandler(e, res)
-    }
+ function getPopularGamesList(req, res) {
+    services.GetPopularGameList(req,res)
 }
 
-function createGroupWithFavoriteGames(req, res) {
-
+function getGameByNameList(req, res, args) {
+    services.getGameByNameList(req,res,args)
 }
 
-function updateGroup(req, res) {
-
+function createGroupWithFavoriteGames(req,res,args) {
+   services.createGroupWithFavoriteGames(req,res,args)
 }
 
-function deleteGroup(req, res) {
-
+function updateGroup(req, res, args) {
+    services.updateGroup(req,res,args)
 }
 
-function addGameToGroup(req, res) {
-
+function deleteGroup(req, res, args) {
+    services.deleteGroup(req,res,args)
 }
 
-function getGameListWithSpecifiedDuration(req, res) {
-
+async function addGameToGroup(req, res, args) {
+   services.addGameToGroup(req,res,args)
 }
 
-function errorHandler(err, res) {
-    res.statusCode = err.statusCode
-    res.setHeader('content-type', 'application/json')
-    res.end(JSON.stringify(err))
+async function getGameListWithSpecifiedDuration(req, res, args) {
+  services.getGameListWithSpecifiedDuration(req,res,args)
 }
+
+
 
 module.exports = {
     getPopularGamesList: getPopularGamesList,
-    getGameByName: getGameByName,
+    getGameByNameList: getGameByNameList,
     createGroupWithFavoriteGames: createGroupWithFavoriteGames,
     updateGroup: updateGroup,
     deleteGroup: deleteGroup,

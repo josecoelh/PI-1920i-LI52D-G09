@@ -1,4 +1,5 @@
 'use strict'
+const parse = require('url').parse
 
 let GET = {};
 let PUT = {};
@@ -11,7 +12,10 @@ const VALUE = 1;
 
 let rout = function (req, rsp) {
     var url = req.url
-    var urlArray = url.split('/')
+    const obj = parse(req.url, true)
+    var pathname = obj.pathname
+    var query = obj.query
+    var urlArray = pathname.split('/')
     var container;
     switch (req.method) {
         case 'GET':
@@ -32,30 +36,30 @@ let rout = function (req, rsp) {
         var templateUrl = (prop + "").split('/')
         if (templateUrl.length == urlArray.length) {
             var count = 0;
-            var pathArg;
+            var pathArg = {};
             for (let i = 0; i < urlArray.length; i++) {
 
                 if (urlArray[i].includes('=')) {
                     var iPosition = urlArray[i].split("=");
-                    if (!(iPosition[NAME]==(templateUrl[i]))) {
+                    if (!(iPosition[NAME] == (templateUrl[i]))) {
                         isProp = false;
                         break;
                     }
-                    pathArg[count++] = iPosition[VALUE]
+                    pathArg[count++] = iPosition[VALUE].replace(" ", "%20")
                 } else {
-                    if (!(urlArray[i]==templateUrl[i])) {
+                    if (!(urlArray[i] == templateUrl[i])) {
                         isProp = false;
                     }
                 }
             }
             if (isProp) {
-                container[prop](req, rsp, pathArg)
-                return;
+                container[prop](req, rsp, query);
+                return
             }
         }
     }
-}
 
+}
 
 rout.get = (url, fun) => GET[url] = fun
 rout.put = (url, fun) => PUT[url] = fun
