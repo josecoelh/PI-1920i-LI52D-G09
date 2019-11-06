@@ -3,9 +3,10 @@ const STORAGE_PORT = 9200
 
 const http = require('http')
 const router = require('./router')
-const ciborgWebApi = require('./ciborg-web-api')
-
-const STORAGE_HOST = 'localhost'
+const gameData = require('./board-games-data')
+const groupData = require('./ciborg-db')
+const service = require('./ciborg-service')(gameData, groupData)
+const ciborgWebApi = require('./ciborg-web-api')(service)
 
 
 const server = http.createServer(router)
@@ -22,14 +23,9 @@ server.on('request', handleRequest)
 
 function handleRequest(req, rsp) {
     console.log(`Request received for ${req.url} with method ${req.method}`)
-    let data = ""
-    req.on('data', chunk => data += chunk.toString())
-    req.on('end', processBodyAndReply)
 
 
-    function processBodyAndReply() {
-        console.log(`Received data: ${data}`)
-    }
+
 }
 
 server.listen(PORT, () => console.log(`Server listening on port ${PORT}`))

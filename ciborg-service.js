@@ -1,14 +1,43 @@
 'use strict'
 
+var data;
+var group;
 
-var gameDto = require('./entities/gameDto')
-const ciborgData = require('./board-games-data')
+module.exports = function (gameData, groupData) {
+    group = groupData
+    data = gameData
+    return {
+        getPopularGameList: getPopularGameList,
+        getGameByNameList: getGameByNameList,
+        createGroupWithFavoriteGames: createGroupWithFavoriteGames,
+        updateGroup: updateGroup,
+        deleteGroup: deleteGroup,
+        addGameToGroup: addGameToGroup,
+        getGameListWithSpecifiedDuration: getGameListWithSpecifiedDuration
+    }
+}
+
+function getPopularGameList(cb) {
+    data.getPopularGames(cb)
+}
+
+function getGameByNameList(name,cb) {
+  //  if(!name) //TODO ERROR THROW
+    data.getGameByName(name,cb)
+}
+
+function createGroupWithFavoriteGames(name,description,cb) {
+    //  if(!name) //TODO ERROR THROW
+    group.createGroup({name,description},cb)
+}
+
+function updateGroup({name,description},cb) {
+    group.updateGroup(name,description,cb)
+    }
 
 
-
-
-async function getPopularGamesList(req,res) {
-    await ciborgData.getPopularGames((err, resp) => {
+function deleteGroup(req, res, args) {
+    ciborgData.deleteGroup(args[0], (err, resp) => {
         if (err) {
             errorHandler(err, res)
         } else {
@@ -19,8 +48,8 @@ async function getPopularGamesList(req,res) {
     })
 }
 
-async function getGameByNameList(req, res, args) {
-    await ciborgData.getGameByName(args[0], (err, resp) => {
+function addGameToGroup(req, res, args) {
+    ciborgData.addGameToGroup(args[0], (err, resp) => {
         if (err) {
             errorHandler(err, res)
         } else {
@@ -31,8 +60,8 @@ async function getGameByNameList(req, res, args) {
     })
 }
 
-async function createGroupWithFavoriteGames(req,res,args) {
-    await ciborgData.createGroup(args, (err, resp) => {
+function getGameListWithSpecifiedDuration(req, res, args) {
+    ciborgData.getGameListWithSpecifiedDuration(args[0], (err, resp) => {
         if (err) {
             errorHandler(err, res)
         } else {
@@ -43,53 +72,6 @@ async function createGroupWithFavoriteGames(req,res,args) {
     })
 }
 
-async function updateGroup(req, res, args) {
-    let data = await ciborgData.updateGroup(args, (err, resp) => {
-        if (err) {
-            errorHandler(err, res)
-        } else {
-            res.statusCode = 200
-            res.setHeader('content-type', 'application/json')
-            res.end(JSON.stringify(resp))
-        }
-    })
-}
-
-async function deleteGroup(req, res, args) {
-    let data = await ciborgData.deleteGroup(args[0], (err, resp) => {
-        if (err) {
-            errorHandler(err, res)
-        } else {
-            res.statusCode = 200
-            res.setHeader('content-type', 'application/json')
-            res.end(JSON.stringify(resp))
-        }
-    })
-}
-
-async function addGameToGroup(req, res, args) {
-    let data = await ciborgData.addGameToGroup(args[0], (err, resp) => {
-        if (err) {
-            errorHandler(err, res)
-        } else {
-            res.statusCode = 200
-            res.setHeader('content-type', 'application/json')
-            res.end(JSON.stringify(resp))
-        }
-    })
-}
-
-async function getGameListWithSpecifiedDuration(req, res, args) {
-    let data = await ciborgData.getGameListWithSpecifiedDuration(args[0], (err, resp) => {
-        if (err) {
-            errorHandler(err, res)
-        } else {
-            res.statusCode = 200
-            res.setHeader('content-type', 'application/json')
-            res.end(JSON.stringify(resp))
-        }
-    })
-}
 
 function errorHandler(err, res) {
     res.statusCode = err.statusCode
@@ -98,13 +80,5 @@ function errorHandler(err, res) {
 }
 
 
-module.exports = {
-    GetPopularGameList : getPopularGamesList,
-    getGameByNameList: getGameByNameList,
-    createGroupWithFavoriteGames: createGroupWithFavoriteGames,
-    updateGroup: updateGroup,
-    deleteGroup: deleteGroup,
-    addGameToGroup: addGameToGroup,
-    getGameListWithSpecifiedDuration: getGameListWithSpecifiedDuration
-}
+
 

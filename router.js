@@ -5,17 +5,17 @@ let GET = {};
 let PUT = {};
 let POST = {};
 let DELETE = {};
-
-
 const NAME = 0;
 const VALUE = 1;
 
-let rout = function (req, rsp) {
-    var url = req.url
-    const obj = parse(req.url, true)
-    var pathname = obj.pathname
-    var query = obj.query
-    var urlArray = pathname.split('/')
+function ret(req, rsp) {
+    let data = ""
+    req.on('data', chunk => data += chunk.toString())
+    req.on('end', rout)
+
+ function rout () {
+    req.body = JSON.parse(data);
+    var urlArray = req.url.split('/');
     var container;
     switch (req.method) {
         case 'GET':
@@ -38,34 +38,28 @@ let rout = function (req, rsp) {
             var count = 0;
             var pathArg = {};
             for (let i = 0; i < urlArray.length; i++) {
-
-                if (urlArray[i].includes('=')) {
-                    var iPosition = urlArray[i].split("=");
-                    if (!(iPosition[NAME] == (templateUrl[i]))) {
-                        isProp = false;
-                        break;
-                    }
-                    pathArg[count++] = iPosition[VALUE].replace(" ", "%20")
-                } else {
+                if (templateUrl[i].includes(':')) {
+                    pathArg[count++] = urlArray[i].replace(" ", "%20")
+                }
+                else {
                     if (!(urlArray[i] == templateUrl[i])) {
                         isProp = false;
                     }
                 }
             }
             if (isProp) {
-                container[prop](req, rsp, query);
-                return
+                return container[prop](req, rsp, pathArg);
+
             }
         }
     }
-
+    }
 }
+ret.get = (url, fun) => GET[url] = fun
+ret.put = (url, fun) => PUT[url] = fun
+ret.delete = (url, fun) => DELETE[url] = fun
+ret.post = (url, fun) => POST[url] = fun
 
-rout.get = (url, fun) => GET[url] = fun
-rout.put = (url, fun) => PUT[url] = fun
-rout.delete = (url, fun) => DELETE[url] = fun
-rout.post = (url, fun) => POST[url] = fun
-
-module.exports = rout
+module.exports = ret
 
 
