@@ -1,12 +1,12 @@
 const PORT = 8000
 const STORAGE_PORT = 9200
 
-const http = require('http')
-const router = require('./router')
-const gameData = require('./board-games-data')
-const groupData = require('./ciborg-db')
-const service = require('./ciborg-service')(gameData, groupData)
-const ciborgWebApi = require('./ciborg-web-api')(service)
+const http = require('http');
+const router = require('./router');
+const gameData = require('./board-games-data');
+const groupData = require('./ciborg-db')();
+const service = require('./ciborg-service')(gameData, groupData);
+const ciborgWebApi = require('./ciborg-web-api')(service);
 
 
 const server = http.createServer(router)

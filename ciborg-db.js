@@ -1,41 +1,44 @@
 const request = require('request');
-const url = 'http://localhost:9200/groups/group';
+var url = 'http://localhost:9200';
 
-
-function ciborgdb() {
+module.exports = function() {
+    return {
+        createGroup:createGroup,
+        updateGroup : updateGroup,
+        deleteGroup : deleteGroup
+    }
 }
 
 
-ciborgdb.prototype.createGroup = function (group, cb) {
+function createGroup(group, cb) {
+    var status = "Group created"
     let options = {
-        url: url,
+        url: url + `/groups/_doc/${group.name}`,
         json: true,
         headers: {'Content-Type': 'application/json'},
-        id: null,
         body: {'name': group.name, 'description': group.description, 'games': []}
-    }
-    request.post(options, (err, response, body) => {
-        options.id = body._id
-        requestHandler(200, cb, err, response, body, "Group created", `/ciborg/api/group/${body._id}`)
-    })
+    };
+    var exists = false
+    request.get(options,(err, response , body) =>{
+        if(body._id){
+            cb(null, {status: status, uri: `/ciborg/group/${group.name}`})
+        } else {
+            request.post(options, (err, response, body) => {
+                requestHandler( cb, err, body, status ,group.name)
+            })
+        }
+    });
 }
 
 
-function requestHandler(statusCode, cb, err, res, body, status, uri) {
-    if (err) {
-        return cb(err)
-    }
-    if (res.statusCode != statusCode) {
-        return cb({
-            code: res.statusCode,
-            message: res.statusMessage,
-            error: body
-        })
-    }
-    cb(null, {status: status, uri: uri})
+function requestHandler( cb, err, body, status, name) {
+    if (err) return cb(err);
+    if(body.result == 'created')
+        cb(null, {status: status, uri: `/ciborg/group/${name}`})
+
 }
 
-ciborgdb.prototype.updateGroup = function (args, cb) {
+function updateGroup (args, cb) {
     let options = {
         url: url,
         json: true,
@@ -47,7 +50,7 @@ ciborgdb.prototype.updateGroup = function (args, cb) {
         });
 }
 
-ciborgdb.prototype.deleteGroup = function (group, cb) {
+function deleteGroup (group, cb) {
     let options = {
         url: url,
         json: true,
@@ -59,5 +62,5 @@ ciborgdb.prototype.deleteGroup = function (group, cb) {
 }
 
 
-module.exports = new ciborgdb()
+
 
