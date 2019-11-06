@@ -11,29 +11,23 @@ module.exports = function() {
 
 
 function createGroup(group, cb) {
-    var status = "Group created"
+
     let options = {
         url: url + `/groups/_doc/${group.name}`,
         json: true,
         headers: {'Content-Type': 'application/json'},
         body: {'name': group.name, 'description': group.description, 'games': []}
     };
-    var exists = false
-    request.get(options,(err, response , body) =>{
-        if(body._id){
-            cb(null, {status: status, uri: `/ciborg/group/${group.name}`})
-        } else {
+
             request.post(options, (err, response, body) => {
-                requestHandler( cb, err, body, status ,group.name)
-            })
-        }
-    });
+                requestHandler( cb, err, body, "Group created" ,group.name)
+            });
 }
 
 
 function requestHandler( cb, err, body, status, name) {
     if (err) return cb(err);
-    if(body.result == 'created')
+    if(body.result == 'created' || "updated")
         cb(null, {status: status, uri: `/ciborg/group/${name}`})
 
 }

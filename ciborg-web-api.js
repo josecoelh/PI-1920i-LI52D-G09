@@ -32,7 +32,7 @@ function createGroupWithFavoriteGames(req, res) {
         if (err) {
             errorHandler(err, res)
         } else {
-            res.statusCode = 200
+            res.statusCode = 201
             res.setHeader('content-type', 'application/json')
             res.end(JSON.stringify(resp))
         }
