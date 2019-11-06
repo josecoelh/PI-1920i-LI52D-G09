@@ -2,6 +2,7 @@
 
 var data;
 var group;
+const error =require('./Error')
 
 module.exports = function (gameData, groupData) {
     group = groupData
@@ -9,7 +10,7 @@ module.exports = function (gameData, groupData) {
     return {
         getPopularGameList: getPopularGameList,
         getGameByNameList: getGameByNameList,
-        createGroupWithFavoriteGames: createGroupWithFavoriteGames,
+        createGroup: createGroup,
         updateGroup: updateGroup,
         deleteGroup: deleteGroup,
         addGameToGroup: addGameToGroup,
@@ -22,30 +23,24 @@ function getPopularGameList(cb) {
 }
 
 function getGameByNameList(name,cb) {
-  //  if(!name) //TODO ERROR THROW
+     if(!name) cb(error(error.ARGUMENT_ERROR,"name must not be null"))
     data.getGameByName(name,cb)
 }
 
-function createGroupWithFavoriteGames(name,description,cb) {
-    //  if(!name) //TODO ERROR THROW
-    group.createGroup({name,description},cb)
+function createGroup(name,description,cb) {
+    if(!name) cb(error(error.ARGUMENT_ERROR,"name must not be null"))
+    group.createGroup({name,description, games : []}, cb)
 }
 
-function updateGroup({name,description},cb) {
-    group.updateGroup(name,description,cb)
+function updateGroup(id ,newName,newDescription,cb) {
+    if(!name) cb(error(error.ARGUMENT_ERROR,"bad input"))
+    group.updateGroup(id,newName,newDescription,cb)
     }
 
 
-function deleteGroup(req, res, args) {
-    ciborgData.deleteGroup(args[0], (err, resp) => {
-        if (err) {
-            errorHandler(err, res)
-        } else {
-            res.statusCode = 200
-            res.setHeader('content-type', 'application/json')
-            res.end(JSON.stringify(resp))
-        }
-    })
+function deleteGroup(id , cb) {
+    if(!id) cb(error(error.ARGUMENT_ERROR,"id must not be null"))
+    group.deleteGroup(id, cb)
 }
 
 function addGameToGroup(req, res, args) {

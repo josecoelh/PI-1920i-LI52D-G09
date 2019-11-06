@@ -27,8 +27,8 @@ function getGameByNameList(req, res, args) {
     })
 }
 
-function createGroupWithFavoriteGames(req, res) {
-    services.createGroupWithFavoriteGames(req.body.name,req.body.description,(err, resp) => {
+function createGroup(req, res) {
+    services.createGroup(req.body.name,req.body.description,(err, resp) => {
         if (err) {
             errorHandler(err, res)
         } else {
@@ -36,27 +36,38 @@ function createGroupWithFavoriteGames(req, res) {
             res.setHeader('content-type', 'application/json')
             res.end(JSON.stringify(resp))
         }
+
+
+    })
+}
+function updateGroup(req, res, args) {
+    services.updateGroup(args[0], req.body.name, req.body.description,(err,resp) =>{
+        if (err) {
+            errorHandler(err, res)
+        } else {
+            res.statusCode = 200
+            res.setHeader('content-type', 'application/json')
+            res.end(JSON.stringify(resp))
+        }
+
     })
 }
 
-function errorHandler(err, res) {
-    res.statusCode = err.statusCode
-    res.setHeader('content-type', 'application/json')
-    res.end(JSON.stringify(err))
-}
 
 
 
-
-
-
-
-function updateGroup(req, res, args) {
-    services.updateGroup(req, res, args)
-}
 
 function deleteGroup(req, res, args) {
-    services.deleteGroup(req, res, args)
+    services.deleteGroup(args[0],(err,resp) =>{
+        if (err) {
+            errorHandler(err, res)
+        } else {
+            res.statusCode = 200
+            res.setHeader('content-type', 'application/json')
+            res.end(JSON.stringify(resp))
+        }
+
+    })
 }
 
 function addGameToGroup(req, res, args) {
@@ -68,12 +79,20 @@ function getGameListWithSpecifiedDuration(req, res, args) {
 }
 
 
+function errorHandler(err, res) {
+    res.statusCode = err.code
+    res.setHeader('content-type', 'application/json')
+    console.log(err.message)
+    res.end(JSON.stringify(err))
+}
+
+
 module.exports = function (service) {
     services = service
 return {
     getPopularGamesList: getPopularGamesList,
     getGameByNameList: getGameByNameList,
-    createGroupWithFavoriteGames: createGroupWithFavoriteGames,
+    createGroup: createGroup,
     updateGroup: updateGroup,
     deleteGroup: deleteGroup,
     addGameToGroup: addGameToGroup,

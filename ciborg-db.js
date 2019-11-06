@@ -1,5 +1,6 @@
 const request = require('request');
-var url = 'http://localhost:9200';
+const error =require('./Error')
+var elastic = 'http://localhost:9200';
 
 module.exports = function() {
     return {
@@ -10,51 +11,70 @@ module.exports = function() {
 }
 
 
+
+
 function createGroup(group, cb) {
-
     let options = {
-        url: url + `/groups/_doc/${group.name}`,
+        url: `${elastic}/group/_doc/${group.name}`,
+        id : group.name,
         json: true,
         headers: {'Content-Type': 'application/json'},
-        body: {'name': group.name, 'description': group.description, 'games': []}
+        body: group
     };
-
-            request.post(options, (err, response, body) => {
-                requestHandler( cb, err, body, "Group created" ,group.name)
-            });
-}
-
-
-function requestHandler( cb, err, body, status, name) {
-    if (err) return cb(err);
-    if(body.result == 'created' || "updated")
-        cb(null, {status: status, uri: `/ciborg/group/${name}`})
-
-}
-
-function updateGroup (args, cb) {
-    let options = {
-        url: url,
-        json: true,
-        headers: {'Content-Type': 'application/json'},
-    }
     request.post(options, (err, response, body) => {
-            let res = {id: body._id, group: options}
-            cb(null, res)
-        });
+        if (err) return cb(err);
+        console.log(`Group ${group.name} created`)
+        cb(null, {status: 'Group created', uri: `/groups/group/_doc/${group.name}`})
+
+    });
 }
 
-function deleteGroup (group, cb) {
+
+function updateGroup (id,newName,newDescription,cb) {
     let options = {
-        url: url,
+        url: `${elastic}/group/_doc/${id}`,
         json: true,
         headers: {'Content-Type': 'application/json'},
     }
-    request.delete(options, (err, response, body) => {
-        requestHandler(201, cb, err, response, body, "Group deleted", `/ciborg/api/group/${options.id}`)
+    request.get(options, (err, response, body) => {
+        if(err) cb(err)
+        if(body.found){
+            options.id = body._id
+            options.body = {name : newName,
+            description : newDescription,
+            games : body._source.games}
+            request.put(options, (e, res, _body) =>{
+                if (e) return cb(e);
+                console.log(`Group ${id} updated`)
+                cb(null, {status: 'Group updated', uri: `/group/_doc/${options.body.name}`})
+
+            })
+        }
+        else cb(error(error.NOT_FOUND,"not found"))
+        });
+
+}
+
+function deleteGroup (id, cb) {
+    let options = {
+        url: `${elastic}/group/_doc/${id}`,
+        json: true,
+        headers: {'Content-Type': 'application/json'},
+    }
+    request.get(options, (err, response , body) =>{
+        if(err) cb(err)
+        cb(error(error.NOT_FOUND,"not found"))
+
+        request.delete(options, (e, res, bod) =>{
+            if (e) cb(e)
+            console.log(`Group ${id} is no more`)
+            cb(null, {
+                status : "group deleted",
+                uri : `${elastic}/group/_doc/${id}`,
+            })
+        })
     })
 }
-
 
 
 
