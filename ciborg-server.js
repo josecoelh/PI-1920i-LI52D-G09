@@ -13,6 +13,7 @@ const server = http.createServer(router);
 
 router.get(`/ciborg/popular`, ciborgWebApi.getPopularGamesList);
 router.get(`/ciborg/search/:name`, ciborgWebApi.getGameByName);
+router.get('/ciborg/groups',ciborgWebApi.getAllGroups)
 router.get(`/ciborg/group/:id/:min-dur/:max-dur`, ciborgWebApi.getGameListWithSpecifiedDuration);
 router.get(`/ciborg/group/:id`, ciborgWebApi.getGroup)
 router.post('/ciborg/group', ciborgWebApi.createGroup);

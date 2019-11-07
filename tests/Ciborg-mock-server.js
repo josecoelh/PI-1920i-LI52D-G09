@@ -11,6 +11,7 @@ const ciborgWebApi = require('../ciborg-web-api')(service);
 
 const server = http.createServer(router);
 
+
 router.get(`/ciborg/popular`, ciborgWebApi.getPopularGamesList);
 router.get(`/ciborg/search/:name`, ciborgWebApi.getGameByName);
 router.get(`/ciborg/group/:id/:min-dur/:max-dur`, ciborgWebApi.getGameListWithSpecifiedDuration);
@@ -20,6 +21,7 @@ router.put(`/ciborg/group/:id`, ciborgWebApi.updateGroup);
 router.put(`/ciborg/group/:id/game/:game-name`, ciborgWebApi.addGameToGroup);
 router.delete(`/ciborg/group/:id`, ciborgWebApi.deleteGroup);
 router.delete(`/ciborg/group/:id/game/:game-name`, ciborgWebApi.removeFromGroup)
+router.get('/ciborg/allgroups',ciborgWebApi.getAllGroups)
 
 
 server.on('request', handleRequest);

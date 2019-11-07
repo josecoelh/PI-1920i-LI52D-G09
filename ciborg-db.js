@@ -4,6 +4,7 @@ var elastic = 'http://localhost:9200';
 
 module.exports = function() {
     return {
+        getAllGroups : getAllGroups,
         getGroup : getGroup,
         createGroup : createGroup,
         updateGroup : updateGroup,
@@ -13,6 +14,21 @@ module.exports = function() {
         getGameListWithSpecifiedDuration : getGameListWithSpecifiedDuration
     }
 };
+
+
+function getAllGroups(cb) {
+    var options = {
+        url : `${elastic}/group/_search`,
+        json: true,
+        headers: {'Content-Type': 'application/json'},
+    };
+    request.get(options, (err,response, body) =>{
+        if(err) cb(err)
+         cb(null,body.hits.hits)
+
+    })
+}
+
 
 function getGameListWithSpecifiedDuration(id, min, max , cb) {
     var options = {

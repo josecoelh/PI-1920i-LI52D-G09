@@ -14,10 +14,15 @@ module.exports = function (gameData, groupData) {
         createGroup: createGroup,
         updateGroup: updateGroup,
         deleteGroup: deleteGroup,
+        getAllGroups : getAllGroups,
         addGameToGroup: addGameToGroup,
         removeFromGroup : removeFromGroup,
         getGameListWithSpecifiedDuration: getGameListWithSpecifiedDuration
     }
+}
+
+function getAllGroups(cb) {
+    group.getAllGroups(cb)
 }
 
 function getPopularGameList(cb) {
@@ -56,7 +61,7 @@ function addGameToGroup(id, game, cb) {
 }
 
 function removeFromGroup(id, gameName, cb) {
-    if(!id || gameName) cb({status : error.ARGUMENT_ERROR, description :"bad input"})
+    if(!id || !gameName) !cb({status : error.ARGUMENT_ERROR, description :"bad input"})
     group.removeFromGroup(id, gameName.replace('%20', " "), cb)
 }
 

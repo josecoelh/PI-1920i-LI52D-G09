@@ -138,7 +138,7 @@
 					"raw": "{\r\n    \"name\": \"lolww\",\r\n    \"description\": \"description of group created\"\r\n  }"
 				},
 				"url": {
-					"raw": "http://localhost:8000/ciborg/group/lolww/game/Star%20Realms",
+					"raw": "http://localhost:8000/ciborg/group/GY_NRm4BhHybxC50DGmA/game/Spirit%20Island",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -147,9 +147,9 @@
 					"path": [
 						"ciborg",
 						"group",
-						"lolww",
+						"GY_NRm4BhHybxC50DGmA",
 						"game",
-						"Star%20Realms"
+						"Spirit%20Island"
 					]
 				}
 			},
@@ -212,6 +212,69 @@
 				"header": [],
 				"url": {
 					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get groupALL",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/ciborg/groups",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"ciborg",
+						"groups"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get  allgroups",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/ciborg/groups",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"ciborg",
+						"groups"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "specified duration",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/ciborg/group/GY_NRm4BhHybxC50DGmA/100/500",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"ciborg",
+						"group",
+						"GY_NRm4BhHybxC50DGmA",
+						"100",
+						"500"
+					]
 				}
 			},
 			"response": []

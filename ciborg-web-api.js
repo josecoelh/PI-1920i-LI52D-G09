@@ -38,6 +38,15 @@ function getGroup(req, res, args) {
     })
 }
 
+function getAllGroups(req,res){
+    services.getAllGroups((err, resp) =>{
+        if (err) errorHandler(err,res)
+        else {
+            sucessHandler(res,resp,200)
+        }
+    })
+}
+
 function createGroup(req, res) {
     services.createGroup(req.body.name,req.body.description,(err, resp) => {
         if (err) {
@@ -129,6 +138,7 @@ return {
     getGameByName: getGameByName,
     getGameListWithSpecifiedDuration: getGameListWithSpecifiedDuration,
     getGroup : getGroup,
+    getAllGroups : getAllGroups,
     createGroup: createGroup,
     updateGroup: updateGroup,
     deleteGroup: deleteGroup,
