@@ -14,7 +14,7 @@ function ret(req, rsp) {
     req.on('end', rout)
 
  function rout () {
-    req.body = JSON.parse(data);
+    if(data!= "")req.body = JSON.parse(data);
     var urlArray = req.url.split('/');
     var container;
     switch (req.method) {

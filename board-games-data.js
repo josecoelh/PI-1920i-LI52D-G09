@@ -1,8 +1,7 @@
 'use strict'
 
 const request = require('request');
-const gameDto = require('../PI-1920i-LI52D-G09/entities/gameDto')
-const ciborgDb = require('./ciborg-db')
+const gameDto = require('./entities/gameDto')
 
 
 function getPopularGames(cb) {
@@ -20,19 +19,6 @@ function getGameByName(name, cb) {
 }
 
 
-function updateGroup(args, cb) {
-    ciborgDb.updateGroup(args, cb);
-}
-
-function addGameToGroup(args, cb) {
-    ciborgDb.addGameToGroup(args, cb);
-}
-
-
-function deleteGroup(args, cb) {
-    ciborgDb.deleteGroup(args, cb);
-}
-
 
 function requestHandler(statusCode, cb, err, res, body) {
     if (err) {
@@ -48,14 +34,14 @@ function requestHandler(statusCode, cb, err, res, body) {
     let jsonObject = JSON.parse(body);
     let gameArray = {};
     let count = 0;
-    jsonObject.games.map(game => gameArray[count++] = new gameDto(game.id, game.name, game.year_published, game.min_age, game.description))
+    jsonObject.games.map(game => gameArray[count++] = new gameDto(game.name, game.description ,game.max_playtime))
     return cb(null,gameArray);
 }
 
 
 module.exports = {
     getPopularGames: getPopularGames,
-    getGameByName: getGameByName,
+    getGameByName: getGameByName
 }
 
 

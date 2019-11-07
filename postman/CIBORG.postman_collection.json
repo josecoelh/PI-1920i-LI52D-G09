@@ -1,0 +1,243 @@
+{
+	"info": {
+		"_postman_id": "769213ae-d57b-4c72-97fb-3977f259b7d2",
+		"name": "CIBORG",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET to ellastic",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9200/group/_doc/lolww",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"group",
+						"_doc",
+						"lolww"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete group",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"lolww\",\r\n    \"description\": \"description of group created\"\r\n  }"
+				},
+				"url": {
+					"raw": "http://localhost:8000/ciborg/group/lol",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"ciborg",
+						"group",
+						"lol"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put group",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"low\",\r\n    \"description\": \"description of group created\"\r\n  }"
+				},
+				"url": {
+					"raw": "http://localhost:8000/ciborg/group/lolww",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"ciborg",
+						"group",
+						"lolww"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post group",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"lolww\",\r\n    \"description\": \"description of group created\"\r\n  }"
+				},
+				"url": {
+					"raw": "http://localhost:8000/ciborg/group",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"ciborg",
+						"group"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get group",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8000/ciborg/group/hcY5Rm4BwdXBJS7vd9uB",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"ciborg",
+						"group",
+						"hcY5Rm4BwdXBJS7vd9uB"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put game in group",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"lolww\",\r\n    \"description\": \"description of group created\"\r\n  }"
+				},
+				"url": {
+					"raw": "http://localhost:8000/ciborg/group/lolww/game/Star%20Realms",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"ciborg",
+						"group",
+						"lolww",
+						"game",
+						"Star%20Realms"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete game from group",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"lolww\",\r\n    \"description\": \"description of group created\"\r\n  }"
+				},
+				"url": {
+					"raw": "http://localhost:8000/ciborg/group/lolww/game/Spirit%20Island",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"ciborg",
+						"group",
+						"lolww",
+						"game",
+						"Spirit%20Island"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/ciborg/group/lolww/20/200",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/ciborg/group/lolww/20/200",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"ciborg",
+						"group",
+						"lolww",
+						"20",
+						"200"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get popular",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "29bc4910-9c97-4637-9884-ba4a15126975",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "7c3f384d-aae7-4678-8e6e-39a946eaf799",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
