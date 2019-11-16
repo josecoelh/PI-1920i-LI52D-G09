@@ -25,13 +25,15 @@ function getAllGroups(cb) {
     group.getAllGroups(cb)
 }
 
-function getPopularGameList(cb) {
-    data.getPopularGames(cb)
+function getPopularGameList() {
+    return data.getPopularGames()
 }
 
-function getGameByName(name,cb) {
+function getGameByName(name) {
     if(!name) cb({status : error.ARGUMENT_ERROR, description :"name must not be null"})
-    data.getGameByName(name,cb)
+    return  data.getGameByName(name)
+
+
 }
 
 function getGroup(id, cb) {

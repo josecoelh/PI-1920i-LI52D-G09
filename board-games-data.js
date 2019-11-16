@@ -4,23 +4,40 @@ const request = require('request');
 const gameDto = require('./entities/gameDto')
 
 
-function getPopularGames(cb) {
+function getPopularGames() {
     let url = 'https://www.boardgameatlas.com/api/search?orderby=popularity&client_id=SB1VGnDv7M';
-    request.get(url, (err, response, body) => {
-        requestHandler(200, cb, err, response, body)
-    })
+    return new Promise(((resolve, reject) => {
+        request.get(url, (err, res, body) => {
+            if(err) reject(err);
+            if (res.statusCode !== 200) {
+                reject({
+                    code: res.statusCode,
+                    message: res.statusMessage,
+                    error: body
+                })};
+            resolve(JSON.parse(body))
+        })
+    })).then(game => game.games.map(game => new gameDto(game.name, game.description ,game.max_playtime)))
 }
 
 function getGameByName(name, cb) {
     let url = `https://www.boardgameatlas.com/api/search?name=${name}&exact=true&client_id=SB1VGnDv7M`;
-    request.get(url, (err, response, body) => {
-        requestHandler(200, cb, err, response, body)
-    })
-}
+    return new Promise(((resolve, reject) => {
+        request.get(url, (err, res, body) => {
+            if(err) reject(err);
+            if (res.statusCode !== 200) {
+                reject({
+                    code: res.statusCode,
+                    message: res.statusMessage,
+                    error: body
+                })};
+                resolve(JSON.parse(body))
+        })
+    })).then(game => game.games.map(game => new gameDto(game.name, game.description ,game.max_playtime)))}
 
 
 
-function requestHandler(statusCode, cb, err, res, body) {
+function requestHandler(statusCode, err, res, body) {
     if (err) {
         return cb(err)
     }

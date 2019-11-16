@@ -2,34 +2,21 @@
 
 
 var services;
-const GAME = 0;
-const NAME = 0;
-const GROUP_ID = 0;
-const GAME_NAME = 1;
-const MIN = 1, MAX = 2;
 
 function getPopularGamesList(req, res) {
-    services.getPopularGameList((err, resp) => {
-        if (err) {
-            errorHandler(err, res)
-        } else {
-            sucessHandler(res,resp,200)
-        }
-    })
+    services.getPopularGameList()
+        .then(resp => sucessHandler(res,resp,200))
+        .catch(err => errorHandler(err,res))
 }
 
-function getGameByName(req, res, args) {
-    services.getGameByName(args[NAME], (err, resp) => {
-        if (err) {
-            errorHandler(err, res)
-        } else {
-            sucessHandler(res,resp,200)
-        }
-    })
+function getGameByName(req, res) {
+    services.getGameByName(req.params.name)
+        .then(resp => sucessHandler(res,resp,200))
+        .catch(err=>errorHandler(err,res))
 }
 
-function getGroup(req, res, args) {
-    services.getGroup(args[GROUP_ID], (err, resp) =>{
+function getGroup(req, res) {
+    services.getGroup(req.params.id, (err, resp) =>{
         if(err)
             errorHandler(err, res);
         else {
@@ -59,8 +46,8 @@ function createGroup(req, res) {
     })
 }
 
-function updateGroup(req, res, args) {
-    services.updateGroup(args[GROUP_ID], req.body.name, req.body.description,(err,resp) =>{
+function updateGroup(req, res) {
+    services.updateGroup(req.params.id, req.body.name, req.body.description,(err,resp) =>{
         if (err) {
             errorHandler(err, res)
         } else {
@@ -70,8 +57,8 @@ function updateGroup(req, res, args) {
     })
 }
 
-function deleteGroup(req, res, args) {
-    services.deleteGroup(args[GROUP_ID],(err,resp) =>{
+function deleteGroup(req, res) {
+    services.deleteGroup(req.params.id,(err,resp) =>{
         if (err) {
             errorHandler(err, res)
         } else {
@@ -81,12 +68,12 @@ function deleteGroup(req, res, args) {
     })
 }
 
-function addGameToGroup(req, res, args) {
-    services.getGameByName(args[GAME_NAME],(err, resp) => {
+function addGameToGroup(req, res) {
+    services.getGameByName(req.params.game-name,(err, resp) => {
         if (err) {
             errorHandler(err, res)
         } else {
-            services.addGameToGroup(args[GROUP_ID],resp[GAME], (e, response) =>{
+            services.addGameToGroup(req.params.id,req.params.game-name, (e, response) =>{
                 if (e) errorHandler(e,res);
                 else{
                     sucessHandler(res, response, 200)
@@ -96,8 +83,8 @@ function addGameToGroup(req, res, args) {
     })
 }
 
-function removeFromGroup(req, res, args) {
-    services.removeFromGroup(args[GROUP_ID], args[GAME_NAME],(err,resp) =>{
+function removeFromGroup(req, res) {
+    services.removeFromGroup(req.params.id, req.params.game-name,(err,resp) =>{
         if (err) {
             errorHandler(err, res)
         } else {
@@ -107,8 +94,8 @@ function removeFromGroup(req, res, args) {
     })
 }
 
-function getGameListWithSpecifiedDuration(req, res, args) {
-    services.getGameListWithSpecifiedDuration(args[GROUP_ID],args[MIN],args[MAX],(err,resp) =>{
+function getGameListWithSpecifiedDuration(req, res ) {
+    services.getGameListWithSpecifiedDuration(req.params.id,req.params.min,req.params.min,(err,resp) =>{
         if (err) {
             errorHandler(err, res)
         } else {
