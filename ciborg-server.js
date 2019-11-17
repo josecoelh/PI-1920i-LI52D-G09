@@ -1,17 +1,18 @@
-const PORT = 8000
-const STORAGE_PORT = 9200
+const PORT = 8000;
+const STORAGE_PORT = 9200;
 
-let bodyParser = require('body-parser')
+let bodyParser = require('body-parser');
 const http = require('http');
 const express = require('express');
 const gameData = require('./board-games-data');
 const groupData = require('./ciborg-db')();
 const service = require('./ciborg-service')(gameData, groupData);
 const ciborgWebApi = require('./ciborg-web-api')(service);
-const app = express()
+const app = express();
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 const server = http.createServer(app);
 
 

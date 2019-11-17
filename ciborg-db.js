@@ -2,18 +2,23 @@ const request = require('./chelas-request');
 const error =require('./Error');
 var elastic = 'http://localhost:9200';
 
-module.exports = function() {
-    return {
-        getAllGroups : getAllGroups,
-        getGroup : getGroup,
-        createGroup : createGroup,
-        updateGroup : updateGroup,
-        deleteGroup : deleteGroup,
-        addGameToGroup : addGameToGroup,
-        removeFromGroup : removeFromGroup,
-        getGameListWithSpecifiedDuration : getGameListWithSpecifiedDuration
-    }
+let ret = function() {
+    const url = `${elastic}/group`;
+    return request.head(url)
+            .catch(()=>{request.put(url)})
 };
+
+ret.getAllGroups = getAllGroups;
+ret.getGroup = getGroup;
+ret.createGroup = createGroup;
+ret.updateGroup = updateGroup;
+ret.deleteGroup = deleteGroup;
+ret.addGameToGroup= addGameToGroup;
+ret.removeFromGroup = removeFromGroup;
+ret.getGameListWithSpecifiedDuration = getGameListWithSpecifiedDuration;
+
+module.exports = ret
+
 
 
 function getAllGroups() {
@@ -33,7 +38,7 @@ function getGameListWithSpecifiedDuration(id, min, max) {
         headers: {'Content-Type': 'application/json'},
     };
     return request.get(options).then(body =>{
-        if (!body.found) return {code: error.NOT_FOUND, message: " group not found"};
+        if (!body.found) throw {code: error.NOT_FOUND, description: " group not found"};
         var games = body._source.games[0];
         games = games.filter(game => game.max_playtime>min && game.max_playtime<max);
         games.sort( (gameA, gameB) => gameA.max_playtime - gameB.max_playtime);
@@ -48,9 +53,9 @@ function removeFromGroup(id, gameName) {
         headers: {'Content-Type': 'application/json'},
     };
     return request.get(options).then(body =>{
-        if(!body.found) return {code : error.NOT_FOUND, message : " group not found"};
+        if(!body.found) throw {code : error.NOT_FOUND, description : " group not found"};
         let games = body._source.games[0];
-        if(!games.some(elem => elem.name == gameName )) return {code : error.NOT_FOUND, message : " game not found"};
+        if(!games.some(elem => elem.name == gameName )) throw {code : error.NOT_FOUND, description : " game not found"};
         games = games.filter(elem => elem.name != gameName);
         options.body = {
             name : body._source.name,
@@ -80,6 +85,7 @@ function addGameToGroup(id, game) {
             };
             return request.put(options).then(()=> {return {status: 'Game associated with a group', uri: `/ciborg/group/${id}`} } )
         }
+        else throw {code : 404, description : "Group doesnt exist"}
     })
 
 }
@@ -92,7 +98,7 @@ function getGroup(id) {
     };
     return request.get(options)
         .then(body =>{
-            if(!body.found) return {code : error.NOT_FOUND, message : " group not found"};
+            if(!body.found) throw {code : error.NOT_FOUND, description : " group not found"};
             else {
                 return {
                     index : body._index,
@@ -133,6 +139,7 @@ function updateGroup (id,newName,newDescription) {
                     };
                 return request.put(options).then(() =>{return {status: 'Group updated', uri: `/ciborg/group/${id}`}})
             }
+            else throw {code : 404, description: "Group not found."}
         })
 
 
@@ -149,8 +156,11 @@ function deleteGroup (id) {
             return request.delete(options)
                 .then(()=>{return{status : "group deleted", uri : `/ciborg/group/_doc/${id}`,}})
         }
+        else throw {code : 404, description: "Group Not Found"}
     })
 }
+
+
 
 
 

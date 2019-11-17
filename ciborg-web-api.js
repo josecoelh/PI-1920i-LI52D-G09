@@ -76,7 +76,7 @@ function sucessHandler(res,resp, statusCode) {
 function errorHandler(err, res) {
     res.statusCode = err.code;
     res.setHeader('content-type', 'application/json');
-    console.log(err.message);
+    console.log(err.description);
     res.end(JSON.stringify(err))
 }
 
