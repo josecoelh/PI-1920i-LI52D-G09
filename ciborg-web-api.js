@@ -16,92 +16,55 @@ function getGameByName(req, res) {
 }
 
 function getGroup(req, res) {
-    services.getGroup(req.params.id, (err, resp) =>{
-        if(err)
-            errorHandler(err, res);
-        else {
-            sucessHandler(res,resp,200)
-        }
-    })
+    services.getGroup(req.params.id)
+        .then(resp => sucessHandler(res,resp,200))
+        .catch(err => errorHandler(err,res))
 }
 
 function getAllGroups(req,res){
-    services.getAllGroups((err, resp) =>{
-        if (err) errorHandler(err,res)
-        else {
-            sucessHandler(res,resp,200)
-        }
-    })
+    services.getAllGroups()
+        .then(resp => sucessHandler(res,resp,200))
+        .catch(err => errorHandler(err,res))
 }
 
 function createGroup(req, res) {
-    services.createGroup(req.body.name,req.body.description,(err, resp) => {
-        if (err) {
-            errorHandler(err, res)
-        } else {
-            sucessHandler(res,resp,201)
-        }
-
-
-    })
+    services.createGroup(req.body.name,req.body.description)
+        .then(resp => sucessHandler(res,resp,201))
+        .catch(err => errorHandler(err,res))
 }
 
 function updateGroup(req, res) {
-    services.updateGroup(req.params.id, req.body.name, req.body.description,(err,resp) =>{
-        if (err) {
-            errorHandler(err, res)
-        } else {
-            sucessHandler(res,resp,200)
-        }
-
-    })
+    services.updateGroup(req.params.id, req.body.name, req.body.description)
+        .then(resp => sucessHandler(res,resp,200))
+        .catch(err => errorHandler(err,res))
 }
 
 function deleteGroup(req, res) {
-    services.deleteGroup(req.params.id,(err,resp) =>{
-        if (err) {
-            errorHandler(err, res)
-        } else {
-            sucessHandler(res,resp,200)
-        }
-
-    })
+    services.deleteGroup(req.params.id)
+        .then(resp => sucessHandler(res,resp,200))
+        .catch(err => errorHandler(err,res))
 }
 
 function addGameToGroup(req, res) {
-    services.getGameByName(req.params.game-name,(err, resp) => {
-        if (err) {
-            errorHandler(err, res)
-        } else {
-            services.addGameToGroup(req.params.id,req.params.game-name, (e, response) =>{
-                if (e) errorHandler(e,res);
-                else{
-                    sucessHandler(res, response, 200)
-                }
-            })
-        }
-    })
+    services.getGameByName(req.params.game_name)
+        .then(game => {
+            return services.addGameToGroup(req.params.id,game)
+                .then(resp => sucessHandler(res,resp,201))
+        })
+        .catch(err => errorHandler(err,res))
+
 }
 
 function removeFromGroup(req, res) {
-    services.removeFromGroup(req.params.id, req.params.game-name,(err,resp) =>{
-        if (err) {
-            errorHandler(err, res)
-        } else {
-            sucessHandler(res,resp,200)
-        }
-
-    })
+    services.removeFromGroup(req.params.id, req.params.game_name)
+        .then(resp => sucessHandler(res,resp,200))
+        .catch(err => errorHandler(err,res))
 }
 
 function getGameListWithSpecifiedDuration(req, res ) {
-    services.getGameListWithSpecifiedDuration(req.params.id,req.params.min,req.params.min,(err,resp) =>{
-        if (err) {
-            errorHandler(err, res)
-        } else {
-            sucessHandler(res,resp,200)
-        }
-    })
+    services.getGameListWithSpecifiedDuration(req.params.id,req.params.min_dur,req.params.max_dur)
+        .then(resp => sucessHandler(res,resp,200))
+        .catch(err => errorHandler(err,res))
 }
 
 function sucessHandler(res,resp, statusCode) {

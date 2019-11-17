@@ -22,7 +22,7 @@ module.exports = function (gameData, groupData) {
 }
 
 function getAllGroups(cb) {
-    group.getAllGroups(cb)
+    return group.getAllGroups()
 }
 
 function getPopularGameList() {
@@ -30,47 +30,38 @@ function getPopularGameList() {
 }
 
 function getGameByName(name) {
-    if(!name) cb({status : error.ARGUMENT_ERROR, description :"name must not be null"})
     return  data.getGameByName(name)
 
 
 }
 
-function getGroup(id, cb) {
-    if(!id) cb({status : error.ARGUMENT_ERROR, description :"id must not be null"})
-    group.getGroup(id,cb)
+function getGroup(id) {
+    return group.getGroup(id)
 }
 
-function createGroup(name,description,cb) {
-    if(!name) cb({status : error.ARGUMENT_ERROR, description :"name must not be null"})
-    group.createGroup({name,description, games : []}, cb)
+function createGroup(name,description) {
+    return group.createGroup({name,description, games : []})
 }
 
-function updateGroup(id ,newName,newDescription,cb) {
-    if(!id || newName || newDescription) cb({status : error.ARGUMENT_ERROR, description :"bad input"})
-    group.updateGroup(id,newName,newDescription,cb)
+function updateGroup(id ,newName,newDescription) {
+    return group.updateGroup(id,newName,newDescription)
     }
 
 
 function deleteGroup(id , cb) {
-    if(!id) cb({status : error.ARGUMENT_ERROR, description :"id must not be null"})
-    group.deleteGroup(id, cb)
+    return group.deleteGroup(id, cb)
 }
 
-function addGameToGroup(id, game, cb) {
-    if(!id) cb({status : error.ARGUMENT_ERROR, description :"id must not be null"})
-    group.addGameToGroup(id,game,cb)
+function addGameToGroup(id, game) {
+    return group.addGameToGroup(id,game)
 }
 
-function removeFromGroup(id, gameName, cb) {
-    if(!id || !gameName) !cb({status : error.ARGUMENT_ERROR, description :"bad input"})
-    group.removeFromGroup(id, gameName.replace('%20', " "), cb)
+function removeFromGroup(id, gameName) {
+    return group.removeFromGroup(id, gameName.replace('%20', " "))
 }
 
-function getGameListWithSpecifiedDuration(id, min, max , cb) {
-    if(min  > max) cb({status : error.ARGUMENT_ERROR, description :"min must be smaller than max"});
-    if(!id) cb({status : error.ARGUMENT_ERROR, description :"id must not be null"})
-    group.getGameListWithSpecifiedDuration(id, min, max , cb)
+function getGameListWithSpecifiedDuration(id, min, max) {
+    return group.getGameListWithSpecifiedDuration(id, min, max)
 }
 
 
