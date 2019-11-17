@@ -17,7 +17,7 @@ ret.addGameToGroup= addGameToGroup;
 ret.removeFromGroup = removeFromGroup;
 ret.getGameListWithSpecifiedDuration = getGameListWithSpecifiedDuration;
 
-module.exports = ret
+module.exports = ret;
 
 
 

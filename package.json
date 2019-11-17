@@ -2,7 +2,7 @@
   "name": "npm",
   "version": "1.0.0",
   "description": "\"# PI-1920i-LI52D-G09\"",
-  "main": "board-games-data.js",
+  "main": "ciborg-server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
