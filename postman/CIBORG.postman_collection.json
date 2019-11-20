@@ -36,7 +36,7 @@
 					"raw": "{\r\n    \"name\": \"lolww\",\r\n    \"description\": \"description of group created\"\r\n  }"
 				},
 				"url": {
-					"raw": "http://localhost:8000/ciborg/group/lol",
+					"raw": "http://localhost:8000/ciborg/group/BWg0eW4BOtkTnXsCmdiV",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -45,7 +45,7 @@
 					"path": [
 						"ciborg",
 						"group",
-						"lol"
+						"BWg0eW4BOtkTnXsCmdiV"
 					]
 				}
 			},
@@ -55,13 +55,25 @@
 			"name": "put group",
 			"request": {
 				"method": "PUT",
-				"header": [],
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"low\",\r\n    \"description\": \"description of group created\"\r\n  }"
+					"raw": "{\r\n    \"name\": \"low\",\r\n    \"description\": \"description of group created\"\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
-					"raw": "http://localhost:8000/ciborg/group/lolww",
+					"raw": "http://localhost:8000/ciborg/group/A2gUeW4BOtkTnXsC9tjw",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -70,7 +82,7 @@
 					"path": [
 						"ciborg",
 						"group",
-						"lolww"
+						"A2gUeW4BOtkTnXsC9tjw"
 					]
 				}
 			},
@@ -177,29 +189,6 @@
 						"lolww",
 						"game",
 						"Spirit%20Island"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:8000/ciborg/group/lolww/20/200",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8000/ciborg/group/lolww/20/200",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"ciborg",
-						"group",
-						"lolww",
-						"20",
-						"200"
 					]
 				}
 			},

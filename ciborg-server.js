@@ -5,7 +5,8 @@ let bodyParser = require('body-parser');
 const http = require('http');
 const express = require('express');
 const gameData = require('./board-games-data');
-const groupData = require('./ciborg-db')();
+const groupData = require('./ciborg-db');
+groupData()
 const service = require('./ciborg-service')(gameData, groupData);
 const ciborgWebApi = require('./ciborg-web-api')(service);
 const app = express();

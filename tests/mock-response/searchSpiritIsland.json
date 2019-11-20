@@ -1,0 +1,125 @@
+{
+  "games": [
+    {
+      "id": "kPDxpJZ8PD",
+      "name": "Spirit Island",
+      "year_published": 2016,
+      "min_players": 1,
+      "max_players": 4,
+      "min_playtime": 90,
+      "max_playtime": 120,
+      "min_age": 13,
+      "description": "Powerful Spirits have existed on this isolated island for time immemorial. They are both part of the natural world and - at the same time - something beyond nature. Native Islanders, known as the Dahan, have learned how to co-exist with the spirits, but with a healthy dose of fear and reverence. However, now, the island has been &quot;discovered&quot; by invaders from a far-off land. These would-be colonists are taking over the land and upsetting the natural balance, destroying the presence of Spirits as they go. As Spirits, you must grow in power and work together to drive the invaders from your island... before it's too late!",
+      "description_preview": "Powerful Spirits have existed on this isolated island for time immemorial. They are both part of the natural world and - at the same time - something beyond nature. Native Islanders, known as the Dahan, have learned how to co-exist with the spirits, but with a healthy dose of fear and reverence. However, now, the island has been \"discovered\" by invaders from a far-off land. These would-be colonists are taking over the land and upsetting the natural balance, destroying the presence of Spirits as they go. As Spirits, you must grow in power and work together to drive the invaders from your island... before it's too late!",
+      "image_url": "https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254941010-61PJxjjnbfL.jpg",
+      "thumb_url": "https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254941010-61PJxjjnbfL.jpg",
+      "images": {
+        "thumb": "https://d2k4q26owzy373.cloudfront.net/40x40/games/uploaded/1559254941010-61PJxjjnbfL.jpg",
+        "small": "https://d2k4q26owzy373.cloudfront.net/150x150/games/uploaded/1559254941010-61PJxjjnbfL.jpg",
+        "medium": "https://d2k4q26owzy373.cloudfront.net/350x350/games/uploaded/1559254941010-61PJxjjnbfL.jpg",
+        "large": "https://d2k4q26owzy373.cloudfront.net/700x700/games/uploaded/1559254941010-61PJxjjnbfL.jpg",
+        "original": "https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254941010-61PJxjjnbfL.jpg"
+      },
+      "url": "https://www.boardgameatlas.com/search/game/kPDxpJZ8PD/spirit-island",
+      "price": "53.99",
+      "msrp": "79.95",
+      "discount": "0.32",
+      "primary_publisher": "Greater Than Games",
+      "publishers": [
+        "Greater Than Games"
+      ],
+      "mechanics": [
+        {
+          "id": "PGjmKGi26h"
+        },
+        {
+          "id": "05zCZoLvQJ"
+        },
+        {
+          "id": "33UT4gTFqy"
+        },
+        {
+          "id": "WPytek5P8l"
+        },
+        {
+          "id": "U3zhCQH7Et"
+        },
+        {
+          "id": "lA3KUtVFCy"
+        },
+        {
+          "id": "DEvPj5twid"
+        },
+        {
+          "id": "XM2FYZmBHH"
+        }
+      ],
+      "categories": [
+        {
+          "id": "nWDac9tQzt"
+        },
+        {
+          "id": "gsekjrPJz0"
+        },
+        {
+          "id": "ZTneo8TaIO"
+        },
+        {
+          "id": "upXZ8vNfNO"
+        },
+        {
+          "id": "MHkqIVxwtx"
+        },
+        {
+          "id": "nuHYRFmMjU"
+        },
+        {
+          "id": "O0ogzwLUe8"
+        },
+        {
+          "id": "buDTYyPw4D"
+        }
+      ],
+      "designers": [
+        "R. Eric Reuss"
+      ],
+      "developers": [],
+      "artists": [
+        "Jason Behnke",
+        "Kat G Bermelin",
+        "Loïc Billiau",
+        "Cari Corene",
+        "Lucas Durham",
+        "Rocky Hammer",
+        "Sydni Kruger",
+        "Nolan Nasser",
+        "Jorge Ramos",
+        "Adam Rebottaro",
+        "Moro Rogers",
+        "Graham Sternberg",
+        "Shane Tyree",
+        "Joshua Wright (I)"
+      ],
+      "names": [
+        "Spirit Island (5th Edition) (Ding & Dent)"
+      ],
+      "num_user_ratings": 120,
+      "average_user_rating": 3.9416666666666678,
+      "official_url": "https://store.greaterthangames.com/spirit-island.html?utm_source=boardgameatlas.com&utm_medium=search&utm_campaign=bga_ads",
+      "rules_url": "https://drive.google.com/file/d/0B9kp130SgLtdcGxTcTFodlhaWDg/view",
+      "weight_amount": 2,
+      "weight_units": "lbs",
+      "size_height": 11.6,
+      "size_width": 3,
+      "size_depth": 11.6,
+      "size_units": "inches ",
+      "matches_specs": null,
+      "spec": [],
+      "reddit_all_time_count": 1442,
+      "reddit_week_count": 28,
+      "reddit_day_count": 10,
+      "historical_low_price": 49.97,
+      "historical_low_date": "2019-08-03T12:02:49.377Z"
+    }
+  ]
+}

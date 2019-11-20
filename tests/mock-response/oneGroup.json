@@ -1,0 +1,13 @@
+{
+  "index": "group",
+  "name": "lolww",
+  "description": "description of group created",
+  "id": "GY_NRm4BhHybxC50DGmA",
+  "games": [
+    {
+      "name": "Star Realms",
+      "description": "Star Realms is a spaceship combat deck building game designed by Magic Pro Tour Champions and Hall of Famers Darwin Kastle and Rob Dougherty (developer and cofounder of the Ascension Deck building Game). Star Realms offers all the thrills of traditional trading card game style combat, combined with the fun of a deck building game. Play powerful ships, destroy enemy bases or blast your opponent directly on your way to victory! CONTENTS 128 beautifully illustrated cards: 80 card main deck, 10 Explorer cards, Two 10 card personal decks, 18 double-sided score cards And two full-color rule sheet.",
+      "max_playtime": 30
+    }
+  ]
+}

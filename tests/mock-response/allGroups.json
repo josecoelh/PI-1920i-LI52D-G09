@@ -1,0 +1,118 @@
+[
+  {
+    "_index": "group",
+    "_type": "_doc",
+    "_id": "OJacQW4BTtLk3VHhOcEx",
+    "_score": 1,
+    "_source": {
+      "name": "group",
+      "description": "description of group 1",
+      "games": []
+    }
+  },
+  {
+    "_index": "group",
+    "_type": "_doc",
+    "_id": "undefined",
+    "_score": 1,
+    "_source": {
+      "name": "group",
+      "description": "description of group 1",
+      "games": []
+    }
+  },
+  {
+    "_index": "group",
+    "_type": "_doc",
+    "_id": "dave",
+    "_score": 1,
+    "_source": {
+      "name": "dave",
+      "description": "description of group created",
+      "games": []
+    }
+  },
+  {
+    "_index": "group",
+    "_type": "_doc",
+    "_id": "lolww",
+    "_score": 1,
+    "_source": {
+      "name": "lolww",
+      "description": "description of group created",
+      "games": []
+    }
+  },
+  {
+    "_index": "group",
+    "_type": "_doc",
+    "_id": "g8YyRm4BwdXBJS7vp9tA",
+    "_score": 1,
+    "_source": {
+      "name": "lolww",
+      "description": "description of group created",
+      "games": []
+    }
+  },
+  {
+    "_index": "group",
+    "_type": "_doc",
+    "_id": "hMY5Rm4BwdXBJS7vENsN",
+    "_score": 1,
+    "_source": {
+      "name": "lolww",
+      "description": "description of group created",
+      "games": []
+    }
+  },
+  {
+    "_index": "group",
+    "_type": "_doc",
+    "_id": "hcY5Rm4BwdXBJS7vd9uB",
+    "_score": 1,
+    "_source": {
+      "name": "lolww",
+      "description": "description of group created",
+      "games": []
+    }
+  },
+  {
+    "_index": "group",
+    "_type": "_doc",
+    "_id": "hsY5Rm4BwdXBJS7v4Ns4",
+    "_score": 1,
+    "_source": {
+      "name": "lolww",
+      "description": "description of group created",
+      "games": []
+    }
+  },
+  {
+    "_index": "group",
+    "_type": "_doc",
+    "_id": "GY_NRm4BhHybxC50DGmA",
+    "_score": 1,
+    "_source": {
+      "name": "lolww",
+      "description": "description of group created",
+      "games": [
+        {
+          "name": "Star Realms",
+          "description": "Star Realms is a spaceship combat deck building game designed by Magic Pro Tour Champions and Hall of Famers Darwin Kastle and Rob Dougherty (developer and cofounder of the Ascension Deck building Game). Star Realms offers all the thrills of traditional trading card game style combat, combined with the fun of a deck building game. Play powerful ships, destroy enemy bases or blast your opponent directly on your way to victory! CONTENTS 128 beautifully illustrated cards: 80 card main deck, 10 Explorer cards, Two 10 card personal decks, 18 double-sided score cards And two full-color rule sheet.",
+          "max_playtime": 30
+        }
+      ]
+    }
+  },
+  {
+    "_index": "group",
+    "_type": "_doc",
+    "_id": "_2gOeW4BOtkTnXsCfNd5",
+    "_score": 1,
+    "_source": {
+      "name": "bigkappa",
+      "description": "kappaGames",
+      "games": []
+    }
+  }
+]
