@@ -1,12 +1,14 @@
 'use strict'
 
 const mockService = require('./mock-service');
+const gameData = require('../board-games-data');
+const groupData = require('../ciborg-db');
+const service = require('../ciborg-service')(gameData, groupData);
 const expect = require('chai').expect;
 let fs = require('fs-extra')
 
 describe('Get Popular Games', () => {
-    let expected = fs.readFile('./mock-response/popular.json')
-        .then(buffer => JSON.parse(buffer.toString())).catch(err => console.log(err));
+    let expected = service.getPopularGameList()
     it('Should return popular games', done => {
         mockService.getPopularGames()
             .then(actual => expect(actual).to.deep.equals(actual,expected)).catch(err => console.log(err)).
@@ -15,8 +17,7 @@ describe('Get Popular Games', () => {
 });
 
 describe('Get Spirit Island', () => {
-    let expected = fs.readFile('./mock-response/searchSpiritIsland.json')
-        .then(buffer => JSON.parse(buffer.toString())).catch(err => console.log(err));
+    let expected = service.getGameByName("Spirit20%Island");
     it('Should return Spirit Island', done => {
         mockService.getGameByName()
             .then(actual => expect(actual).to.deep.equals(actual,expected)).catch(err => console.log(err)).
@@ -25,8 +26,7 @@ describe('Get Spirit Island', () => {
 });
 
 describe('Get all Groups', () => {
-    let expected = fs.readFile('./mock-response/allGroups.json')
-        .then(buffer => JSON.parse(buffer.toString())).catch(err => console.log(err));
+    let expected = service.getAllGroups()
     it('Should show all the groups', done => {
         mockService.getAllGroups()
             .then(actual => expect(actual).to.deep.equals(actual,expected)).catch(err => console.log(err)).
