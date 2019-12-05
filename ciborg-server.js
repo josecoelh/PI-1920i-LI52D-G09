@@ -6,13 +6,17 @@ const http = require('http');
 const express = require('express');
 const gameData = require('./board-games-data');
 const groupData = require('./ciborg-db');
+
 groupData()
 const service = require('./ciborg-service')(gameData, groupData);
 const ciborgWebApi = require('./ciborg-web-api')(service);
 const app = express();
 
+const gameRouter = express.Router();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/', express.static(__dirname+'/Client/public'));
+app.use("/games",gameRouter);
 
 const server = http.createServer(app);
 

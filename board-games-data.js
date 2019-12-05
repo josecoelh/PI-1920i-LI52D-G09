@@ -8,7 +8,7 @@ function getPopularGames() {
     let url = 'https://www.boardgameatlas.com/api/search?orderby=popularity&client_id=SB1VGnDv7M';
     return request.get(url)
         .then(body => JSON.parse(body))
-        .then(obj => obj.games.map(game => new gameDto(game.name, game.description ,game.max_playtime)))
+        .then(obj => obj.games.map(game => new gameDto(game.id,game.name, game.description ,game.max_playtime)))
 }
 
 function getGameByName(name, cb) {
@@ -17,7 +17,7 @@ function getGameByName(name, cb) {
         .then(body => JSON.parse(body))
         .then(obj => {
             if (obj.games.length === 0) throw {code : 404, description : "Game Not Found"};
-            obj.games.map(game => new gameDto(game.name, game.description ,game.max_playtime))})
+            return obj.games.map(game => new gameDto(game.id,game.name, game.description ,game.max_playtime, game.image_url))})
 }
 
 

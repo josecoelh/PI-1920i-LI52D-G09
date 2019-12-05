@@ -8,5 +8,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="handlebars.amd" level="application" />
+    <orderEntry type="library" name="handlebars" level="application" />
   </component>
 </module>

@@ -1,4 +1,5 @@
 const request = require('./chelas-request');
+const groupDto = require('./entities/groupDto')
 const error =require('./Error');
 var elastic = 'http://localhost:9200';
 
@@ -27,7 +28,9 @@ function getAllGroups() {
         json: true,
         headers: {'Content-Type': 'application/json'},
     };
-    return request.get(options).then(body => body.hits.hits)
+    return request.get(options).then(body =>
+         body.hits.hits.map( group => new groupDto(group._id,group._source.name, group._source.description, group._source.games))
+    )
 }
 
 
@@ -66,7 +69,7 @@ function removeFromGroup(id, gameName) {
     });
 }
 
-function addGameToGroup(id, game) {
+function addGameToGroup(id, game){
     var options = {
         url : `${elastic}/group/_doc/${id}`,
         json: true,
@@ -100,13 +103,7 @@ function getGroup(id) {
         .then(body =>{
             if(!body.found) throw {code : error.NOT_FOUND, description : " group not found"};
             else {
-                return {
-                    index : body._index,
-                    name : body._source.name,
-                    description:body._source.description,
-                    id:id,
-                    games:body._source.games
-                }
+                return  new groupDto(body._id,body._source.name, body._source.description, body._source.games);
             }
         })
 }
