@@ -1,0 +1,8 @@
+<h1>{{name}}</h1>
+    <h2>{{description}}</h2>
+    <ul>
+        {{#each games}}
+            <li><a href='#game/{{this.name}}'>{{this.name}}</a></li>
+        {{/each}}
+    </ul>
+    <button id ="goToHome">Go back!</button>
