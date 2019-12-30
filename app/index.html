@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <style>
+            ul {
+                list-style: none;
+            }
+
+            ul li::before {
+                content: "\2022";
+                color: #1abc9c;
+                font-weight: bold;
+                display: inline-block;
+                width: 1em;
+                margin-left: -1em;
+            }
+            #logout{
+                bottom: 0;
+                right: 0;
+            }
+            #header{
+                padding: 1px;
+                text-align: center;
+                background: #1abc9c;
+                color: white;
+                font-size: 30px;
+            }
+            body {
+                font-family: "Roboto Light" , Roboto, sans-serif ;
+                background-color: white;
+            }
+            button{
+                background-color: #1abc9c;
+                font-family: "Roboto Light" , Roboto, sans-serif ;
+                color: white;
+                border: #1abc9c;
+            }
+        </style>
+    </head>
+    <body>
+        <div id = "header"></div>
+        <p></p>
+        <div id ="groupsHeader"></div>
+        <div id="groupsResult"></div>
+        <p></p>
+        <div id ="gamesHeader"></div>
+        <div id="gamesResult"></div>
+        <p></p>
+        <a  id = 'logout' href="/logout">LogOut</a>
+       </body>
+</html>

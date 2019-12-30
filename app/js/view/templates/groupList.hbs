@@ -1,0 +1,19 @@
+<ul>
+    <h3> Insert a group</h3>
+    <p>
+        Name
+        <input  id="createdGroupName">
+    </p>
+    <p>
+        Description
+        <input id="createdGroupDesc">
+    </p>
+    <button id="createGroup" >Create New Group</button>
+    <p><h3>Group List</h3></p>
+    {{#each this}}
+        <li>
+            <a href='#group/{{id}}'>{{name}}</a>
+            <button class ="delete" id = {{id}} >X</button>
+        </li>
+    {{/each}}
+</ul>

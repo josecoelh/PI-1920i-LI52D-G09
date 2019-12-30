@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <style>
+        h1{
+            font-family: "Roboto Light" , Roboto, sans-serif ;
+            color:  #1abc9c;
+        }
+        h3{
+            font-family: "Roboto Light" , Roboto, sans-serif ;
+        }
+        button{
+            background-color: #1abc9c;
+            font-family: "Roboto Light" , Roboto, sans-serif ;
+            color: white;
+            border: #1abc9c;
+        }
+    </style>
+</head>
+<body>
+<h1>Register your account</h1>
+<form action="/register" method="POST">
+    <h3>Username:
+        <label for="userName"></label>
+        <input id="userName" name = 'username'>
+    </h3>
+    <p></p>
+    <h3>Password:
+        <label for="Password"></label>
+        <input id="Password" type="password" name = 'password'>
+    </h3>
+    <p></p>
+    <button type="submit">Register</button>
+</form>
+<p></p>
+</body>
+<a href="/login">login</a>
+
+</html>

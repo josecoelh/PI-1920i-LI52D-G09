@@ -3,6 +3,7 @@
 
 var services;
 
+
 function getPopularGamesList(req, res) {
     services.getPopularGameList()
         .then(resp => sucessHandler(res,resp,200))
@@ -16,39 +17,45 @@ function getGameByName(req, res) {
 }
 
 function getGroup(req, res) {
-    services.getGroup(req.params.id)
+    var user = req.session.passport.user
+    services.getGroup(req.params.id, user)
         .then(resp => sucessHandler(res,resp,200))
         .catch(err => errorHandler(err,res))
 }
 
 function getAllGroups(req,res){
-    services.getAllGroups()
+    var user = req.session.passport.user
+    services.getAllGroups(user)
         .then(resp => sucessHandler(res,resp,200))
         .catch(err => errorHandler(err,res))
 }
 
 function createGroup(req, res) {
-    services.createGroup(req.body.name,req.body.description)
+    var user = req.session.passport.user
+    services.createGroup(req.body.name,req.body.description, user)
         .then(resp => sucessHandler(res,resp,201))
         .catch(err => errorHandler(err,res))
 }
 
 function updateGroup(req, res) {
-    services.updateGroup(req.params.id, req.body.name, req.body.description)
+    var user = req.session.passport.user
+    services.updateGroup(req.params.id, req.body.name, req.body.description,user)
         .then(resp => sucessHandler(res,resp,200))
         .catch(err => errorHandler(err,res))
 }
 
 function deleteGroup(req, res) {
-    services.deleteGroup(req.params.id)
+    var user = req.session.passport.user
+    services.deleteGroup(req.params.id, user)
         .then(resp => sucessHandler(res,resp,200))
         .catch(err => errorHandler(err,res))
 }
 
 function addGameToGroup(req, res) {
+    var user = req.session.passport.user
     services.getGameByName(req.params.game_name)
         .then(game => {
-            return services.addGameToGroup(req.params.id,game)
+            return services.addGameToGroup(req.params.id,game, user)
                 .then(resp => sucessHandler(res,resp,201))
         })
         .catch(err => errorHandler(err,res))
@@ -56,13 +63,15 @@ function addGameToGroup(req, res) {
 }
 
 function removeFromGroup(req, res) {
-    services.removeFromGroup(req.params.id, req.params.game_name)
+    var user = req.session.passport.user
+    services.removeFromGroup(req.params.id, req.params.game_name, user)
         .then(resp => sucessHandler(res,resp,200))
         .catch(err => errorHandler(err,res))
 }
 
 function getGameListWithSpecifiedDuration(req, res ) {
-    services.getGameListWithSpecifiedDuration(req.params.id,req.params.min_dur,req.params.max_dur)
+    var user = req.session.passport.user
+    services.getGameListWithSpecifiedDuration(req.params.id,req.params.min_dur,req.params.max_dur, user)
         .then(resp => sucessHandler(res,resp,200))
         .catch(err => errorHandler(err,res))
 }

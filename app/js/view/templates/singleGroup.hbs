@@ -1,0 +1,16 @@
+<h1>{{name}}</h1>
+<h2>{{description}}</h2>
+<h3> Insert/Delete a Game</h3>
+<p>Game name <input id='newGameName'>
+    <button id='addGame'>Add</button>
+    <button id='delGame'>Delete</button>
+
+</p>
+<h3>Games</h3>
+<ul>
+    {{#each games}}
+        <li><a href='#game/{{this.name}}'>{{this.name}}</a>
+        </li>
+    {{/each}}
+</ul>
+<button id="goToHome">Go back!</button>

@@ -22,19 +22,21 @@ module.exports = ret;
 
 
 
-function getAllGroups() {
+function getAllGroups(user) {
     var options = {
         url : `${elastic}/group/_search`,
         json: true,
         headers: {'Content-Type': 'application/json'},
     };
-    return request.get(options).then(body =>
-         body.hits.hits.map( group => new groupDto(group._id,group._source.name, group._source.description, group._source.games))
+    return request.get(options).then(body =>{
+        var groups = body.hits.hits.filter(elem => user === elem._source.user)
+        return groups.map( group => new groupDto(group._id,group._source.name, group._source.description, group._source.games))
+        }
     )
 }
 
 
-function getGameListWithSpecifiedDuration(id, min, max) {
+function getGameListWithSpecifiedDuration(id, min, max,user) {
     var options = {
         url : `${elastic}/group/_doc/${id}`,
         json: true,
@@ -42,6 +44,7 @@ function getGameListWithSpecifiedDuration(id, min, max) {
     };
     return request.get(options).then(body =>{
         if (!body.found) throw {code: error.NOT_FOUND, description: " group not found"};
+        if(body._source.user!== user) throw  {code : 404 , description : "access forbidden"}
         var games = body._source.games[0];
         games = games.filter(game => game.max_playtime>min && game.max_playtime<max);
         games.sort( (gameA, gameB) => gameA.max_playtime - gameB.max_playtime);
@@ -49,7 +52,7 @@ function getGameListWithSpecifiedDuration(id, min, max) {
     })
 }
 
-function removeFromGroup(id, gameName) {
+function removeFromGroup(id, gameName,user) {
     var options = {
         url : `${elastic}/group/_doc/${id}`,
         json: true,
@@ -57,7 +60,8 @@ function removeFromGroup(id, gameName) {
     };
     return request.get(options).then(body =>{
         if(!body.found) throw {code : error.NOT_FOUND, description : " group not found"};
-        let games = body._source.games[0];
+        if(body._source.user!== user) throw  {code : 404 , description : "access forbidden"}
+        let games = body._source.games;
         if(!games.some(elem => elem.name == gameName )) throw {code : error.NOT_FOUND, description : " game not found"};
         games = games.filter(elem => elem.name != gameName);
         options.body = {
@@ -65,11 +69,12 @@ function removeFromGroup(id, gameName) {
             description : body._source.description,
             games : games
         };
-        return request.put(options).then(() => {return {status: 'Game removed from a group', uri: `/ciborg/group/${id}`}}  )
+        return request.put(options).then(() => {
+            return {status: 'Game removed from a group', uri: `/ciborg/group/${id}`}}  )
     });
 }
 
-function addGameToGroup(id, game){
+function addGameToGroup(id, game,user){
     var options = {
         url : `${elastic}/group/_doc/${id}`,
         json: true,
@@ -77,11 +82,13 @@ function addGameToGroup(id, game){
     };
     return request.get(options).then(body => {
         if(body.found){
+            if(body._source.user!== user) throw  {code : 404 , description : "access forbidden"}
             options.id = body._id;
             let games = body._source.games;
-            if(games.some(elem => elem.name == game.name )) return {status: 'Game associated with a group', uri: `/ciborg/group/${options.id}`};
-            games.push(game);
+            if(games.some(elem => elem.name === game[0].name )) return {status: 'Game associated with a group', uri: `/ciborg/group/${options.id}`};
+            games.push(game[0]);
             options.body = {
+                user : user,
                 name : body._source.name,
                 description : body._source.description,
                 games : games
@@ -93,7 +100,7 @@ function addGameToGroup(id, game){
 
 }
 
-function getGroup(id) {
+function getGroup(id,user) {
     var options = {
         url : `${elastic}/group/_doc/${id}`,
         json: true,
@@ -103,6 +110,7 @@ function getGroup(id) {
         .then(body =>{
             if(!body.found) throw {code : error.NOT_FOUND, description : " group not found"};
             else {
+                if(body._source.user!== user) throw  {code : 404 , description : "access forbidden"}
                 return  new groupDto(body._id,body._source.name, body._source.description, body._source.games);
             }
         })
@@ -115,10 +123,12 @@ function createGroup(group) {
         headers: {'Content-Type': 'application/json'},
         body: group
     };
-    return request.post(options).then(body =>{ return {status: 'Group created', uri: `/ciborg/group/${body._id}`}})
+    return request.post(options).then(
+        res =>{
+            return {status: 'Group created', uri: `/ciborg/group/${res._id}`}})
 }
 
-function updateGroup (id,newName,newDescription) {
+function updateGroup (id,newName,newDescription,user) {
     let options = {
         url: `${elastic}/group/_doc/${id}`,
         json: true,
@@ -127,6 +137,7 @@ function updateGroup (id,newName,newDescription) {
     return request.get(options)
         .then(body => {
             if(body.found){
+                if(body._source.user!== user) throw  {code : 404 , description : "access forbidden"}
                 options.id = body._id;
                 options.body =
                     {
@@ -142,7 +153,7 @@ function updateGroup (id,newName,newDescription) {
 
 }
 
-function deleteGroup (id) {
+function deleteGroup (id,user) {
     let options = {
         url: `${elastic}/group/_doc/${id}`,
         json: true,
@@ -150,6 +161,7 @@ function deleteGroup (id) {
     };
     return request.get(options).then(body => {
         if(body.found){
+            if(body._source.user!== user) throw  {code : 404 , description : "access forbidden"}
             return request.delete(options)
                 .then(()=>{return{status : "group deleted", uri : `/ciborg/group/_doc/${id}`,}})
         }
