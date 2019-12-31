@@ -58,6 +58,11 @@ function removeFromGroup(id, gameName,user) {
         json: true,
         headers: {'Content-Type': 'application/json'},
     };
+    let optionMerge = {
+        json : true,
+        headers: {'Content-Type': 'application/json'},
+        url : 'http://localhost:9200/group/_forcemerge',
+    }
     return request.get(options).then(body =>{
         if(!body.found) throw {code : error.NOT_FOUND, description : " group not found"};
         if(body._source.user!== user) throw  {code : 404 , description : "access forbidden"}
@@ -71,7 +76,7 @@ function removeFromGroup(id, gameName,user) {
         };
         return request.put(options).then(() => {
             return {status: 'Game removed from a group', uri: `/ciborg/group/${id}`}}  )
-    });
+    }).then(request.post(optionMerge));
 }
 
 function addGameToGroup(id, game,user){
@@ -80,6 +85,11 @@ function addGameToGroup(id, game,user){
         json: true,
         headers: {'Content-Type': 'application/json'},
     };
+    let optionMerge = {
+        json : true,
+        headers: {'Content-Type': 'application/json'},
+        url : 'http://localhost:9200/group/_forcemerge',
+    }
     return request.get(options).then(body => {
         if(body.found){
             if(body._source.user!== user) throw  {code : 404 , description : "access forbidden"}
@@ -96,7 +106,7 @@ function addGameToGroup(id, game,user){
             return request.put(options).then(()=> {return {status: 'Game associated with a group', uri: `/ciborg/group/${id}`} } )
         }
         else throw {code : 404, description : "Group doesnt exist"}
-    })
+    }).then(request.post(optionMerge))
 
 }
 
@@ -159,11 +169,16 @@ function deleteGroup (id,user) {
         json: true,
         headers: {'Content-Type': 'application/json'},
     };
+    let optionMerge = {
+        json : true,
+            headers: {'Content-Type': 'application/json'},
+        url : 'http://localhost:9200/group/_forcemerge',
+    }
     return request.get(options).then(body => {
         if(body.found){
             if(body._source.user!== user) throw  {code : 404 , description : "access forbidden"}
             return request.delete(options)
-                .then(()=>{return{status : "group deleted", uri : `/ciborg/group/_doc/${id}`,}})
+                .then(()=>{return{status : "group deleted", uri : `/ciborg/group/_doc/${id}`,}}).then(request.post(optionMerge))
         }
         else throw {code : 404, description: "Group Not Found"}
     })
