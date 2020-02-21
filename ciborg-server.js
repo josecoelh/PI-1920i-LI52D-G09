@@ -81,8 +81,8 @@ function handleRequest(req) {
 
 function verifyAuthenticated(req, rsp, next) {
     if (req.isAuthenticated() || req.path === '/login' || req.path === '/register')
-        return next()
-    rsp.status(403)
+         return next()
+    //rsp.status(403)
     rsp.redirect('/login')
 }
 
@@ -91,7 +91,7 @@ function verifyUnauthenticated(req, rsp, next) {
         rsp.status(403)
         rsp.redirect('/')
     }
-    return next()
+     return next()
 
 }
 
