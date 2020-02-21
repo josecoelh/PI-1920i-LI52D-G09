@@ -5,8 +5,7 @@ var elastic = 'http://localhost:9200';
 
 let ret = function() {
     const url = `${elastic}/group`;
-    return request.head(url)
-            .catch(()=>{request.put(url)})
+    request.put(url)
 };
 
 ret.getAllGroups = getAllGroups;

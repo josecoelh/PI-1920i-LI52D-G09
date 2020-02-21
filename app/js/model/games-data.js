@@ -16,7 +16,7 @@ module.exports = {
     },
 
     getGame: (name) => {
-        return fetch(apiUris.getGameByNameApi(name)).then(response => response.json())
+        return fetch(apiUris.getGameByNameApi(name)).then(response => console.log(response.json()))
     },
 
     getAllGroups: () => {

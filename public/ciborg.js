@@ -167,7 +167,7 @@ module.exports = {
     },
 
     getGame: (name) => {
-        return fetch(apiUris.getGameByNameApi(name)).then(response => response.json())
+        return fetch(apiUris.getGameByNameApi(name)).then(response => console.log(response.json()))
     },
 
     getAllGroups: () => {
@@ -524,14 +524,10 @@ function groupView(routeManager,group) {
 
 
 function groupsRefresh(routeManager) {
-    setTimeout(()=>{
         routeManager.changeRoute('groups')
-    },1000)
 }
 function groupRefresh(routeManager) {
-    setTimeout(()=>{
         routeManager.changeRoute(`group/${routeManager.getRoutData()[0]}`)
-    },1000)
 
 
 }
