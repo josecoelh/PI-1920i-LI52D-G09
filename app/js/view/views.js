@@ -110,10 +110,19 @@ function groupView(routeManager,group) {
 
 
 function groupsRefresh(routeManager) {
+    setTimeout( ()=> {
         routeManager.changeRoute('groups')
+    },1000)
 }
+        
+
 function groupRefresh(routeManager) {
-        routeManager.changeRoute(`group/${routeManager.getRoutData()[0]}`)
+        setTimeout( ()=> {
+            routeManager.changeRoute(`group/${routeManager.getRoutData()[0]}`)
+        },1000)
+    }
+        
+        
 
 
-}
+
